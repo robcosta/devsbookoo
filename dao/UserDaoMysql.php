@@ -82,4 +82,29 @@ class UserDaoMysql implements UserDao
         
         return true;
     }
+
+    public function insert($user){
+        $u=$this->generateUser($user);
+        $sql = $this->pdo->prepare("INSERT INTO users SET
+                email = :email,
+                password = :password,
+                name = :name,
+                birthdate = :birthdate,
+                city = :city,
+                work = :work,
+                avatar = :avatar,
+                cover = :cover,            
+                token = :token");
+        $sql->bindValue(":email", $u->email);
+        $sql->bindValue(":password", $u->password);
+        $sql->bindValue(":name", $u->name);
+        $sql->bindValue(":birthdate", $u->birthdate);
+        $sql->bindValue(":city", $u->city);
+        $sql->bindValue(":work", $u->work);
+        $sql->bindValue(":avatar", $u->avatar);
+        $sql->bindValue(":cover", $u->cover);
+        $sql->bindValue(":token",$u->token);
+        $sql->execute();
+        return $this->pdo->lastInsertId(); 
+    }
 }
