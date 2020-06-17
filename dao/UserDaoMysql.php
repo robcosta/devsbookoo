@@ -83,8 +83,7 @@ class UserDaoMysql implements UserDao
         return true;
     }
 
-    public function insert($user){
-        $u=$this->generateUser($user);
+    public function insert(User $u){
         $sql = $this->pdo->prepare("INSERT INTO users SET
                 email = :email,
                 password = :password,

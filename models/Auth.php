@@ -1,18 +1,20 @@
 <?php
 require_once 'dao/UserDaoMysql.php';
+require_once 'User.php';
 class Auth {
     private $pdo;
     private $base;
+    private $dao;
     public function __construct($pdo, $base){
         $this->pdo = $pdo;
         $this->base = $base;
+        $this->dao = new UserDaoMysql($this->pdo);
     }
     
     public function checkToken() {
         if(!empty($_SESSION['token'])){
             $token = $_SESSION['token'];
-            $userDao = new UserDaoMysql($this->pdo);
-            $user = $userDao->findbyToken($token);
+            $user = $this->dao->findbyToken($token);
             if($user){
                 return $user;
             }
@@ -22,18 +24,38 @@ class Auth {
     }
 
     public function validateLogin($email,$password){
-        $userDao = new UserDaoMysql($this->pdo);
-        $user = $userDao->findByEmail($email);
+        $user = $this->dao->findByEmail($email);
         if($user) {
             if(password_verify($password, $user->password)){
                 $token = md5(time().rand(0,9999));
                 $_SESSION['token'] = $token;
                 $user->token = $token;
-                $userDao->update($user);
+                $this->dao->update($user);
                 return true;
             }
         }        
         return false;
     }
     
+    public function emailExists($email){
+        return $this->dao->findByEmail($email) ? true : false;        
+    }
+
+    public function registerUser($name, $birthdate, $email, $password){
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $token = md5(time().rand(0,9999));
+
+        $newUser = new User();
+        $newUser->name = $name;
+        $newUser->birthdate = $birthdate;
+        $newUser->email = $email;
+        $newUser->password = $hash;
+        $newUser->token = $token;
+
+        $id = $this->dao->insert($newUser);
+
+        $_SESSION['token'] = $token;
+        
+        return ($id > 0) ? true : false;
+    }
 }

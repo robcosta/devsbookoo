@@ -18,9 +18,11 @@ require 'config.php'
     </header>
     <section class="container main">
         <form method="POST" action="<?=$base;?>/login_action.php">
+
             <?php if(!empty($_SESSION['flash'])): ?>
                 <div class="flash"><?=$_SESSION['flash'];?></div>
             <?php $_SESSION['flash']=""; endif;?>
+
             <input placeholder="Digite seu e-mail" class="input" type="email" name="email" />
 
             <input placeholder="Digite sua senha" class="input" type="password" name="password" />
@@ -34,6 +36,7 @@ require 'config.php'
         setTimeout(()=>{
             document.querySelector('.flash').classList.add("flash-hide");
         },2000);
+        
     </script>
 </body>
 </html>

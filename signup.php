@@ -17,24 +17,31 @@ require 'config.php'
         </div>
     </header>
     <section class="container main">
-        <form method="POST" action="<?=$base;?>/signu_action.php">
+        <form method="POST" action="<?=$base;?>/signup_action.php">
             <?php if(!empty($_SESSION['flash'])): ?>
                 <div class="flash"><?=$_SESSION['flash'];?></div>
             <?php $_SESSION['flash']=""; endif;?>
             <input placeholder="Digite seu nome completo" class="input" type="text" name="name" />
             <input placeholder="Digite seu e-mail" class="input" type="email" name="email" />
+            <input placeholder="Digite sua data de nascimento (dd/mm/aaaa)" class="input" type="text" name="birthdate" id="birthdate" />
             <input placeholder="Digite sua senha" class="input" type="password" name="password" />
             <input placeholder="Confirme sua senha" class="input" type="password" name="checkPass" />
 
-            <input class="button" type="submit" value="Cadastrar" />
+            <input class="button" type="submit" value="Fazer Cadastro" />
 
-            <a href="<?=$base;?>/sair.php">Volta para página de login</a>
+            <a href="<?=$base;?>/sair.php">Já tem conta? Faça login.</a>
         </form>
     </section>
+    <script src="https://unpkg.com/imask"></script>
     <script>
         setTimeout(()=>{
             document.querySelector('.flash').classList.add("flash-hide");
         },2000);
+
+        IMask(
+            document.getElementById("birthdate"),
+            {mask:'00/00/0000'}
+        );
     </script>
 </body>
 </html>
