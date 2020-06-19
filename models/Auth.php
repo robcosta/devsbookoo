@@ -50,6 +50,8 @@ class Auth {
         $newUser->birthdate = $birthdate;
         $newUser->email = $email;
         $newUser->password = $hash;
+        $newUser->avatar = "avatar.jpg";
+        $newUser->cover = "avatar.jpg";
         $newUser->token = $token;
 
         $id = $this->dao->insert($newUser);
