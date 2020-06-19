@@ -13,7 +13,7 @@ if($body){
     $post = new Post();
     $post->id_user = $userInfo->id;
     $post->type = 'text';
-    $post->created_at = date("Y-m-d h:i:s");
+    $post->created_at = date("Y-m-d H:i:s");
     $post->body = $body;
     $postDao->insert($post);    
 }

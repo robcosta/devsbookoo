@@ -1,0 +1,31 @@
+<?php
+require_once 'models/UserRelation.php';
+
+class UserRelationDaoMysql implements UserRelationDao
+{
+    private $pdo;
+
+    public function __construct(PDO $driver)
+    {
+        $this->pdo = $driver;
+    }
+
+    public function insert(UserRelation $u){
+        
+    }
+
+    public function getRelationsFrom($id){
+        $users = [$id];
+        $sql = $this->pdo->prepare('SELECT user_to FROM userrelations WHERE user_from = :user_from');
+        $sql->bindValue(':user_from', $id);
+        $sql->execute();
+        if( $sql->rowCount() > 0 ){
+            $userList = $sql->fetchAll(PDO::FETCH_ASSOC);
+            foreach($userList as $user){
+                $users[] = $user['user_to'];
+            }
+        }
+        return $users;
+    }
+}
+
