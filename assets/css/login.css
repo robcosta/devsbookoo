@@ -83,11 +83,12 @@ form a {
     text-decoration:none;
     color:#4a76a8;
 }
+
 form .flash{
     overflow:hidden;
     max-height: 40px;
     line-height: 40px;
-    background-color: red;
+    background-color:  red;
     color: white;
     margin:5px 0;
     padding-left:10px;
@@ -100,4 +101,4 @@ form .flash-hide {
     max-height: 0;
     margin: 0;
     pointer-events: none;
-  }
+}
