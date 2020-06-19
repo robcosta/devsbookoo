@@ -5,9 +5,9 @@ class UserDaoMysql implements UserDao
 {
     private $pdo;
 
-    public function __construct(PDO $pdo)
+    public function __construct(PDO $driver)
     {
-        $this->pdo = $pdo;
+        $this->pdo = $driver;
     }
 
     private function generateUser($array)
