@@ -46,12 +46,12 @@ class Auth {
         $token = md5(time().rand(0,9999));
 
         $newUser = new User();
-        $newUser->name = $name;
+        $newUser->name = ucwords($name);
         $newUser->birthdate = $birthdate;
         $newUser->email = $email;
         $newUser->password = $hash;
         $newUser->avatar = "avatar.jpg";
-        $newUser->cover = "avatar.jpg";
+        $newUser->cover = "cover.jpg";
         $newUser->token = $token;
 
         $id = $this->dao->insert($newUser);

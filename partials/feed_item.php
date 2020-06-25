@@ -28,7 +28,7 @@
             
             <div class="fic-answer row m-height-10 m-width-20">
                 <div class="fic-item-photo">
-                    <a href="<?=$base;?>/perfil"><img src="<?=$base;?>/media/avatars/<?=$userInfo->avatar;?>" /></a>
+                    <a href="<?=$base;?>/perfil.php/id=<?=$userInfo->id;?>"><img src="<?=$base;?>/media/avatars/<?=$userInfo->avatar;?>" /></a>
                 </div>
                 <input type="text" class="fic-item-field" placeholder="Escreva um comentário" />
             </div>

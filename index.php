@@ -1,7 +1,7 @@
 <?php
-require 'config.php';
-require 'models/Auth.php';
-require 'dao/PostDaoMysql.php';
+require_once 'config.php';
+require_once 'models/Auth.php';
+require_once 'dao/PostDaoMysql.php';
 
 $auth = new Auth($pdo, $base);
 $userInfo = $auth->checkToken();
@@ -26,6 +26,7 @@ require 'partials/menu.php';
             <?php require 'partials/feed_editor.php';?>                        
             
             <?php foreach ($feed as $item){
+                if($item->type == 'text')
                 require 'partials/feed_item.php';                        
             }?>
 

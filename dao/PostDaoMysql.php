@@ -25,13 +25,14 @@ class PostDaoMysql implements PostDao
         return $this->pdo->lastInsertId();
     }
 
-    //Composição do feed
+    //Composição do feed do usuário
     public function getHomeFeed($id_user)
     {    
         $array = [];   
         // 1. Lista dos usários que EU sigo;
         $urDao = new UserRelationDaoMysql($this->pdo);
-        $userList = $urDao->getRelationsFrom($id_user);
+        $userList = $urDao->getFollowing($id_user);
+        $userList[] = $id_user;
     
         // 2. Pegar meus posts e os dos usuários do ítem 1 ordenados pela data
         $sql = $this->pdo->query("SELECT * FROM posts WHERE id_user IN (".implode(',', $userList).") ORDER BY created_at DESC");
@@ -45,6 +46,39 @@ class PostDaoMysql implements PostDao
         return $array;
     }
 
+    //Composição do feed apenas do usuário
+    public function getUserFeed($id_user)
+    {    $array = [];
+        // 1. Pegar meus posts ordenados pela data
+        $sql = $this->pdo->prepare("SELECT * FROM posts 
+        WHERE id_user = :id_user 
+        ORDER BY created_at DESC");
+        $sql->bindValue(":id_user", $id_user);
+        $sql->execute();
+        if( $sql->rowCount() > 0){
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+            // 2. Transformar o resultado em objetos para serem exibidos
+            $array = $this->_postListToObject($data, $id_user);
+        }       
+        return $array;
+    }
+
+
+    public function getPhotosFrom($id_user){
+        $array = [];
+        // 1. Pegar meus posts do tipó photo ordenados pela data
+        $sql = $this->pdo->prepare("SELECT * FROM posts 
+        WHERE id_user = :id_user AND type = 'photo' 
+        ORDER BY created_at DESC");
+        $sql->bindValue(":id_user", $id_user);       
+        $sql->execute();
+        if( $sql->rowCount() > 0){
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+            // 2. Transformar o resultado em objetos para serem exibidos
+            $array = $this->_postListToObject($data, $id_user);
+        }       
+        return $array;
+    }
 
     private function _postListToObject($post_list, $id_user){
         $userDao = new UserDaoMysql($this->pdo);
@@ -74,4 +108,7 @@ class PostDaoMysql implements PostDao
         }        
         return $posts;
     }
+
+
+    
 }
