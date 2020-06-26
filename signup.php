@@ -21,15 +21,15 @@ require 'config.php'
             <?php if(!empty($_SESSION['flash'])): ?>
                 <div class="flash"><?=$_SESSION['flash'];?></div>
             <?php $_SESSION['flash']=""; endif;?>
-            <input placeholder="Digite seu nome completo" class="input" type="text" name="name" />
-            <input placeholder="Digite seu e-mail" class="input" type="email" name="email" />
-            <input placeholder="Digite sua data de nascimento (dd/mm/aaaa)" class="input" type="text" name="birthdate" id="birthdate" />
-            <input placeholder="Digite sua senha" class="input" type="password" name="password" />
-            <input placeholder="Confirme sua senha" class="input" type="password" name="checkPass" />
+            <input placeholder="Digite seu nome completo*" class="input" type="text" name="name" />
+            <input placeholder="Digite seu e-mail*" class="input" type="email" name="email" />
+            <input placeholder="Digite sua data de nascimento (dd/mm/aaaa)*" class="input" type="text" name="birthdate" id="birthdate" />
+            <input placeholder="Digite sua senha*" class="input" type="password" name="password" />
+            <input placeholder="Confirme sua senha*" class="input" type="password" name="checkPass" />
 
             <input class="button" type="submit" value="Fazer Cadastro" />
 
-            <a href="<?=$base;?>/sair.php">Já tem conta? Faça login.</a>
+            <a href="<?=$base;?>/logout.php">Já tem conta? Faça login.</a>
         </form>
     </section>
     <script src="https://unpkg.com/imask"></script>
