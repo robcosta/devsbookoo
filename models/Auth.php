@@ -48,7 +48,7 @@ class Auth {
         $newUser = new User();
         $newUser->name = ucwords($name);
         $newUser->birthdate = $birthdate;
-        $newUser->email = $email;
+        $newUser->email = strtolower($email);
         $newUser->password = $hash;
         $newUser->avatar = "avatar.jpg";
         $newUser->cover = "cover.jpg";

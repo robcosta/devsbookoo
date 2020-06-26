@@ -390,6 +390,50 @@ header .head-side {
 .full-user-photos .user-photo-item {
     margin:0;
 }
+.config-form {
+    margin-top:10px;
+}
+.config-form label {
+    display: block;
+    padding: 10px 0;
+}
+.config-form input {
+    font-size: 14px;
+    width: 100%;
+    max-width: 500px;
+    padding: 10px 15px;
+}
+.config-form .mini{
+    height: 100px;
+}
+.config-form .flash{
+    overflow:hidden;
+    max-height: 40px;
+    line-height: 40px;
+    background-color:  red;
+    color: white;
+    margin:5px 0;
+    padding-left:10px;
+    border-radius: 10px;
+    font-size:13pt;
+    transition: max-height 1s ease-in-out;   
+}
+.config-form .flash-hide {
+    max-height: 0;
+    margin: 0;
+    pointer-events: none;
+}
+.button {
+    border: 0;
+    padding: 10px 20px;
+    background-color: #4A76A8;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 15px;
+    box-shadow: 0px 0px 3px #999;
+}
+
+
 
 @media (max-width: 992px) {
     header .head-side-right {
