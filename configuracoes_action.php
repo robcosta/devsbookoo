@@ -74,9 +74,16 @@ function message($msg){
     header("Location: $base/configuracoes.php");
     exit;
 }
-
+/**
+ * Undocumented function
+ *
+ * @param [type] $newImage
+ * @param integer $width
+ * @param integer $height
+ * @param [type] $pasta
+ * @return void
+ */
 function resizeImage($newImage, $width=200, $height=200, $pasta){
-    global $base;
     $imageName="avatar.jpg";
     if(in_array($newImage['type'], ['image/jpeg', 'image/jpg', 'image/png'])){
         $imageWidth = $width;
