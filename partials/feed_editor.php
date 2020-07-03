@@ -6,6 +6,10 @@
             </div>
             <div class="feed-new-input-placeholder">O que você está pensando, <?=$firtName?></div>
             <div class="feed-new-input" contenteditable="true"></div>
+            <div class="feed-new-photo">
+                <img src="<?=$base;?>/assets/images/photo.png" />
+                <input type="file" name="photo" class="feed-new-file" accept="image/png,image/jpeg,image/jpg" />
+            </div>
             <div class="feed-new-send">
                 <img src="<?=$base;?>/assets/images/send.png" />
             </div>
@@ -19,9 +23,35 @@
     let feedInput = document.querySelector(".feed-new-input");
     let feedSubmit = document.querySelector(".feed-new-send");
     let feedForm = document.querySelector(".feed-form");
+    let feedPhoto = document.querySelector('.feed-new-photo');
+    let feedFile = document.querySelector('.feed-new-file');
+
+    //Envia o post do tipo 'text'
     feedSubmit.addEventListener('click', function(){
         let value = feedInput.innerText.trim();
         feedForm.querySelector('input[name=body]').value = value;
         feedForm.submit();
     });
+
+    //Envia o post tipo 'photo'
+    feedPhoto.addEventListener('click', function(){
+    feedFile.click();
+    });
+    feedFile.addEventListener('change', async function(){
+    let photo = feedFile.files[0];
+    let formData = new FormData();
+
+    formData.append('photo', photo);
+    let req = await fetch('ajax_upload.php', {
+        method: 'POST',
+        body: formData
+    });
+    let json = await req.json();
+
+    if(json.error != '') {
+        alert(json.error);
+    }
+
+    window.location.href = window.location.href;
+});
 </script>
