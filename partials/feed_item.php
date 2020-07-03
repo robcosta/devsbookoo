@@ -1,5 +1,13 @@
 <?php
 require_once 'feed-item-script.php';
+switch ($item->type) {
+    case 'text':
+        $actionPhrase = 'fez um post';
+        break;
+    case 'photo':
+        $actionPhrase = 'postou uma foto';
+        break;  
+}
 ?>
 <div class="box feed-item" data-id="<?=$item->id;?>">
     <div class="box-body">
@@ -10,17 +18,31 @@ require_once 'feed-item-script.php';
             <div class="feed-item-head-info">
                 <a href="<?=$base;?>/perfil.php?id=<?=$item->user->id;?>"><span class="fidi-name"><?=$item->user->name;?></span></a>
                 <span class="fidi-action">
-                    <?=$item->type == "text" ? "Fez um post" : "Postou uma Foto";?>
+                    <?=$actionPhrase;?>
                 </span>
                 <br/>
                 <span class="fidi-date"><?=date('d/m/Y H:i', strtotime($item->created_at));?></span>
             </div>
+            <?php if($item->mine):?>
             <div class="feed-item-head-btn">
                 <img src="<?=$base;?>/assets/images/more.png" />
+                <div class="feed-item-more-window">
+                    <a href="<?=$base;?>/excluir_post_action.php?id=<?=$item->id;?>">Excluir Post</a>
+                </div>
             </div>
+            <?php endif;?>
         </div>
         <div class="feed-item-body mt-10 m-width-20">
-            <?= str_replace('&#13;&#10;', '<br>', $item->body);?>
+            <?php 
+            switch ($item->type) {
+                case 'text':
+                    echo str_replace('&#13;&#10;', '<br>', $item->body);
+                    break;
+                case 'photo':
+                    echo '<img src="'.$base.'/media/uploads/'.$item->body.'"';
+                    break;  
+            }            
+            ?>
         </div>
         <div class="feed-item-buttons row mt-20 m-width-20">
             <div class="like-btn <?=$item->liked ?'on' : '';?>"><?=$item->likeCount;?></div>

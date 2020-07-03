@@ -27,6 +27,14 @@ class PostDaoMysql implements PostDao
         return $this->pdo->lastInsertId();
     }
 
+    public function delete($id, $id_user)
+    {
+        $sql = $this->pdo->prepare("DELETE FROM posts WHERE id = :id AND id_user = :id_user");
+        $sql->bindValue(":id", $id);
+        $sql->bindValue(":id_user", $id_user);
+        $sql->execute();
+    }
+
     //Composição do feed do usuário
     public function getHomeFeed($id_user)
     {    
